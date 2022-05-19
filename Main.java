@@ -1,17 +1,15 @@
-
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import utils.PhoneFormatter;
 import utils.PhoneValidator;
 
 public class Main {
 	
 	public static void main(String[] args) {
-		String number = "+1234567891235";
+		String number = "00334569123522222";
 		System.out.println(PhoneValidator.isLongNumber(number));
-		// readPhoneNumbers(args);
     }
 
 	private static void readPhoneNumbers(String[] file) {

@@ -1,5 +1,8 @@
 package utils;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class PhoneValidator {
     
     private static boolean isShortNumber(String number) {
@@ -7,7 +10,6 @@ public class PhoneValidator {
     }
 
     public static boolean isLongNumber(String number) {
-        /** Plus marks aren't counted for character limit when it's a long phone number. */
         String formattedNumber = PhoneFormatter.formatLongNumber(number);
         return formattedNumber.trim().length() >= 9 && formattedNumber.trim().length() <= 14;
     }
@@ -32,9 +34,29 @@ public class PhoneValidator {
             if (number.trim().startsWith("+")) 
                 return false;
 
+            if (longNumberContainsInvalidCharacters(number))
+                return false;
+
             return true;
         }
 
         return false;
     }
+
+    public static boolean longNumberContainsInvalidCharacters(String number) {
+        String formattedNumber = PhoneFormatter.formatLongNumber(number);
+
+        Pattern pattern = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(formattedNumber);
+
+        boolean containsSpecialCharacter = matcher.find();
+
+        return containsSpecialCharacter;
+    }
+
+    /** Phone numbers can start with 00 if doesn't start with "+". */
+    public static boolean containsInvalidBeginning(String number) {
+        return number.trim().startsWith("+") && number.substring(1, 3).equals("00");
+    }
+
 }
