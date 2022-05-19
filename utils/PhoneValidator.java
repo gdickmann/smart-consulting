@@ -93,44 +93,28 @@ public class PhoneValidator {
         return number;
     }
 
-    /** To validate the country code, the program verify all the country codes provided in "countryCodes.txt" */
-    public static String isValidCountryCode(String[] file) {
-
-        String[] inputs = {"+44 65465444", "+56 918 878 443", "+82 918 878 443", "+666 65465444", "+44 65465444"};
-        List<String> totalNumbers = new ArrayList<>();
-
+    public static void insertLongNumber(String file, List<String> phoneNumbers) {
         BufferedReader reader = null;
 		try {
 			reader = new BufferedReader(new FileReader("./countryCodes.txt"));
 			String line = reader.readLine();
 
 			while (line != null) {
-                String countryCodes = PhoneFormatter.extractCountryCodeFromTextFile(line);
+                String countryCodes = PhoneFormatter.extractCountryCodeFromTextFile(line);                
 
-                for (String input : inputs) {
-                    String inputCountryCode = getCountryCode(input);
-                    
-                    if (inputCountryCode.equals(countryCodes)) {
-                        totalNumbers.add(PhoneFormatter.extractCountryNameFromTextFile(line));
-                    }
+                String inputCountryCode = getCountryCode(file);
+                
+                if (inputCountryCode.equals(countryCodes)) {
+                    phoneNumbers.add(PhoneFormatter.extractCountryNameFromTextFile(line));
                 }
 
                 
 				line = reader.readLine();
-			}
-            
-            HashSet<String> uniqueValues = new HashSet<>(totalNumbers);
-            for (String value : uniqueValues) {
-                System.out.println(value + " " + Collections.frequency(totalNumbers, value));
+			}                        
 
-            }
-            
 			reader.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-        return "countryCode";
     }
-
 }
