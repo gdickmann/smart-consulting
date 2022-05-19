@@ -1,5 +1,8 @@
 package utils;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -71,8 +74,50 @@ public class PhoneValidator {
         return invalidPlusMark || invalidZeroBeginning;
     }
 
-    public static boolean isValidCountryCode(String number) {
-        return true;
+    public static boolean containsCountryCode(String number) {
+        return number.trim().startsWith("+");
+    }
+
+    public static String getCountryCode(String number) {
+        /** Phone numbers only contains country code if it starts with a plus mark. */
+        if (containsCountryCode(number)) {
+            String[] countryCode = number.split("\\s+");
+            /** Remove the plus mark from country code */
+            return countryCode[0].replaceAll("\\+","");
+        }
+
+        return number;
+    }
+
+    /** To validate the country code, the program verify all the country codes provided in "countryCodes.txt" */
+    public static String isValidCountryCode(String[] file) {
+
+        String[] inputs = {"+44 65465444", "+666 918 878 443"};
+        int matches = 0;
+
+        BufferedReader reader = null;
+		try {
+			reader = new BufferedReader(new FileReader("./countryCodes.txt"));
+			String line = reader.readLine();
+
+			while (line != null) {
+                String countryCodes = PhoneFormatter.extractCountryCodeFromTextFile(line);
+
+                for (String input : inputs) {
+                    String inputCountryCode = getCountryCode(input);
+                    if (inputCountryCode.equals(countryCodes)) matches++;
+                }
+
+				line = reader.readLine();
+			}
+            System.out.println(matches);
+			
+			reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+        return "countryCode";
     }
 
 }

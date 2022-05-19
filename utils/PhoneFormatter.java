@@ -16,4 +16,8 @@ public class PhoneFormatter {
 
         return formattedNumber;
     }
+
+    public static String extractCountryCodeFromTextFile(String number) {
+        return number.replaceAll("\\D+","");
+    }
 }

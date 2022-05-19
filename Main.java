@@ -8,8 +8,8 @@ import utils.PhoneValidator;
 public class Main {
 	
 	public static void main(String[] args) {
-		String number = "446670";
-		System.out.println(PhoneValidator.isValidShortNumber(number));
+		String[] number = {"+351 65465444"};
+		System.out.println(PhoneValidator.isValidCountryCode(number));
     }
 
 	private static void readPhoneNumbers(String[] file) {
