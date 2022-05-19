@@ -3,6 +3,8 @@ package utils;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -92,8 +94,8 @@ public class PhoneValidator {
     /** To validate the country code, the program verify all the country codes provided in "countryCodes.txt" */
     public static String isValidCountryCode(String[] file) {
 
-        String[] inputs = {"+44 65465444", "+666 918 878 443"};
-        int matches = 0;
+        String[] inputs = {"+44 65465444", "+56 918 878 443", "+82 918 878 443", "+666 65465444"};
+        List<String> totalNumbers = new ArrayList<>();
 
         BufferedReader reader = null;
 		try {
@@ -105,12 +107,18 @@ public class PhoneValidator {
 
                 for (String input : inputs) {
                     String inputCountryCode = getCountryCode(input);
-                    if (inputCountryCode.equals(countryCodes)) matches++;
+                    
+                    if (inputCountryCode.equals(countryCodes)) {
+                        totalNumbers.add(PhoneFormatter.extractCountryNameFromTextFile(line));
+                    }
                 }
 
 				line = reader.readLine();
 			}
-            System.out.println(matches);
+            
+            for (String string : totalNumbers) {
+                System.out.println(string);
+            }
 			
 			reader.close();
 		} catch (IOException e) {

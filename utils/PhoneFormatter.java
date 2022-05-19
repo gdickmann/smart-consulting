@@ -20,4 +20,9 @@ public class PhoneFormatter {
     public static String extractCountryCodeFromTextFile(String number) {
         return number.replaceAll("\\D+","");
     }
+
+    public static String extractCountryNameFromTextFile(String number) {
+        return number.replaceAll("[^a-zA-Z]", "");
+    }
+
 }
