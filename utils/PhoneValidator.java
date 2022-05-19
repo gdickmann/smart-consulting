@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -94,7 +96,7 @@ public class PhoneValidator {
     /** To validate the country code, the program verify all the country codes provided in "countryCodes.txt" */
     public static String isValidCountryCode(String[] file) {
 
-        String[] inputs = {"+44 65465444", "+56 918 878 443", "+82 918 878 443", "+666 65465444"};
+        String[] inputs = {"+44 65465444", "+56 918 878 443", "+82 918 878 443", "+666 65465444", "+44 65465444"};
         List<String> totalNumbers = new ArrayList<>();
 
         BufferedReader reader = null;
@@ -113,13 +115,16 @@ public class PhoneValidator {
                     }
                 }
 
+                
 				line = reader.readLine();
 			}
             
-            for (String string : totalNumbers) {
-                System.out.println(string);
+            HashSet<String> uniqueValues = new HashSet<>(totalNumbers);
+            for (String value : uniqueValues) {
+                System.out.println(value + " " + Collections.frequency(totalNumbers, value));
+
             }
-			
+            
 			reader.close();
 		} catch (IOException e) {
 			e.printStackTrace();
