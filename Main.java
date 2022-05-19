@@ -8,8 +8,8 @@ import utils.PhoneValidator;
 public class Main {
 	
 	public static void main(String[] args) {
-		String number = "00334569123522222";
-		System.out.println(PhoneValidator.isLongNumber(number));
+		String number = "446670";
+		System.out.println(PhoneValidator.isValidShortNumber(number));
     }
 
 	private static void readPhoneNumbers(String[] file) {
