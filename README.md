@@ -13,5 +13,5 @@ The input file must contain each phone number separated by a break line. Example
 
 Thanks for the opportunity!
 
-Gustavo Henrique Dickmann
+Gustavo Henrique Dickmann       
 gustavo.dickmann123@gmail.com
